@@ -1,0 +1,34 @@
+{
+	"root": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+	"leaves": [
+		{
+			"input": [
+				"0x1111111111111111111111111111111111111111",
+				"1000000000000000000"
+			],
+			"proof": [
+				"0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+				"0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+			]
+		},
+		{
+			"input": [
+				"0x2222222222222222222222222222222222222222",
+				"2000000000000000000"
+			],
+			"proof": [
+				"0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+			]
+		},
+		{
+			"input": [
+				"0x3333333333333333333333333333333333333333",
+				"3000000000000000000"
+			],
+			"proof": [
+				"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+				"0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+			]
+		}
+	]
+}

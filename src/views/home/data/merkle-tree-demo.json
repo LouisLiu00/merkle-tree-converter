@@ -1,0 +1,37 @@
+{
+	"format": "standard-v1",
+	"tree": [
+		"0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+		"0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+		"0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+		"0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+		"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+	],
+	"values": [
+		{
+			"value": [
+				"0x1111111111111111111111111111111111111111",
+				"1000000000000000000"
+			],
+			"treeIndex": 3
+		},
+		{
+			"value": [
+				"0x2222222222222222222222222222222222222222",
+				"2000000000000000000"
+			],
+			"treeIndex": 4
+		},
+		{
+			"value": [
+				"0x3333333333333333333333333333333333333333",
+				"3000000000000000000"
+			],
+			"treeIndex": 2
+		}
+	],
+	"leafEncoding": [
+		"address",
+		"uint256"
+	]
+}
