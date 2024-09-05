@@ -1,7 +1,7 @@
 <template>
     <v-footer height="48" app elevation="2">
         <a v-for="item in items" :key="item.title" :href="item.href" :title="item.title" class="d-inline-block mx-2 social-link" rel="noopener noreferrer" target="_blank" >
-            <v-icon :icon="item.icon" :size="item.title === 'Merkle Tree Converter' ? 40 : 24" :color="item.title === 'Merkle Tree Converter' ? 'light-blue' : ''" />
+            <v-icon :icon="item.icon" :size="item.title === 'Merkle Tree Converter' ? 40 : 24" :color="item.title === 'Merkle Tree Converter' ? 'primary' : ''" />
         </a>
         <div class="text-caption text-disabled" style="position: absolute; right: 16px;">
             &copy; {{ (new Date()).getFullYear() }} <span class="d-none d-sm-inline-block"></span>

@@ -7,7 +7,7 @@
                     <div class="text-body-2 font-weight-bold">Welcome to</div>
                     <h1 class="text-h2 font-weight-bold">
                         <span>Merkle Tree </span>
-                        <span class="text-light-blue">Converter</span>
+                        <span class="text-primary">Converter</span>
                     </h1>
                     <div class="text-body-2 font-weight-bold mt-5">Easily convert files from <v-kbd>Merkle Tree</v-kbd> to <v-kbd>Merkle Proof</v-kbd>, online.</div>
                 </div>
@@ -21,7 +21,7 @@
                                 <span> repository on GitHub for more.</span>
                             </div>
                         </v-card>
-                        <v-btn rounded="lg" elevation="8" class="text-none text-h5 my-10" color="light-blue" width="200" height="60" @click="convert()">Convert</v-btn>
+                        <v-btn rounded="lg" elevation="8" class="text-none text-h5 my-10" color="primary" width="200" height="60" @click="convert()">Convert</v-btn>
                     </v-col>
                 </v-row>
             </v-responsive>

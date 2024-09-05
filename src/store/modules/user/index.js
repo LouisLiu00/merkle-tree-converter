@@ -7,6 +7,8 @@ const state = () => ({
 	darkTheme: 1,
     // 认证令牌
 	token: null,
+    // GitHub 令牌对象
+	githubToken: null,
 	// 用户对象
 	user: {},
 })
@@ -41,6 +43,13 @@ const getters = {
 		state.token = localStorage.getItem('merkle-tree-converter-token');
 		return state.token;
 	},
+    githubToken: state => {
+		if (state.githubToken) {
+			return state.githubToken;
+		}
+		state.githubToken = JSON.parse(localStorage.getItem('merkle-tree-converter-githubToken'));
+		return state.githubToken;
+	},
 	user: state => {
 		if (state.user) {
 			return state.user;
@@ -59,6 +68,9 @@ const actions = {
 	},
     tokenHandler(context, payload){
 		context.commit('tokenHandler', payload);
+	},
+    githubTokenHandler(context, payload){
+		context.commit('githubTokenHandler', payload);
 	},
 	userHandler(context, payload){
 		context.commit('userHandler', payload);
@@ -84,6 +96,10 @@ const mutations = {
 			localStorage.setItem('merkle-tree-converter-token', token);
 		}
 		state.token = token;
+	},
+    githubTokenHandler(state, githubToken){
+		localStorage.setItem('merkle-tree-converter-githubToken', JSON.stringify(githubToken));
+		state.githubToken = githubToken;
 	},
 	userHandler(state, user){
 		localStorage.setItem('merkle-tree-converter-user', JSON.stringify(user));

@@ -44,5 +44,20 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    proxy: {
+        "/github-api": {
+            // 后端接口地址
+            target: "https://api.github.com",
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/github-api/, ""),
+            secure: false,
+        },
+        "/github": {
+            // 后端接口地址
+            target: "https://github.com",
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/github/, ""),
+        },
+    },
   },
 })

@@ -43,18 +43,18 @@ router.afterEach(to => {
 
     document.title = to.meta.title;
     
-    document.querySelector('link[rel="canonical"]').href = location.href;
+    // document.querySelector('link[rel="canonical"]').href = location.href;
 
-    document.querySelector('meta[name="title"]').content = to.meta.title;
-    document.querySelector('meta[name="description"]').content = to.meta.description;
+    // document.querySelector('meta[name="title"]').content = to.meta.title;
+    // document.querySelector('meta[name="description"]').content = to.meta.description;
 
-    document.querySelector('meta[property="og:title"]').content = to.meta.title;
-    document.querySelector('meta[property="og:description"]').content = to.meta.description;
-    document.querySelector('meta[property="og:url"]').content = location.href;
+    // document.querySelector('meta[property="og:title"]').content = to.meta.title;
+    // document.querySelector('meta[property="og:description"]').content = to.meta.description;
+    // document.querySelector('meta[property="og:url"]').content = location.href;
 
-    document.querySelector('meta[property="twitter:title"]').content = to.meta.title;
-    document.querySelector('meta[property="twitter:description"]').content = to.meta.description;
-    document.querySelector('meta[property="twitter:url"]').content = location.href;
+    // document.querySelector('meta[property="twitter:title"]').content = to.meta.title;
+    // document.querySelector('meta[property="twitter:description"]').content = to.meta.description;
+    // document.querySelector('meta[property="twitter:url"]').content = location.href;
 
 })
 

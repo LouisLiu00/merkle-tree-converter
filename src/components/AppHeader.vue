@@ -9,15 +9,40 @@
         </template>
         <v-app-bar-title class="font-weight-black">
             <span>MerkleTree</span>
-            <span class="text-light-blue">Converter</span>
+            <span class="text-primary">Converter</span>
         </v-app-bar-title>
-      </v-app-bar>
+        <template v-slot:append>
+            <Profile class="mr-2"></Profile>
+        </template>
+    </v-app-bar>
 </template>
+<script>
+import { mapGetters } from "vuex";
+import Profile from "@/components/Profile.vue";
+export default {
+    data(){
+        return {
 
-<script setup>
+        }
+    },
+    components: { Profile },
+    created(){
 
+    },
+    mounted(){
+
+    },
+    computed: {
+        ...mapGetters(['token'])
+    },
+    watch:{
+
+    },
+    methods: {
+
+    }
+}
 </script>
-
-<style scoped lang="sass">
+<style>
 
 </style>
