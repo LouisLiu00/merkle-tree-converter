@@ -8,8 +8,8 @@ const routes = [
 	// Home
     // { path: '/:pathMatch(.*)', name:'Page404', component: Page404, 
     //     meta: { 
-    //         title: '404 - Page Not Found | Un-trade, un-limit.', 
-    //         description: 'Oops! Looks like you\'ve reached a page that doesn\'t exist. Explore untrading\'s Provenance Value Amplification (PVA) unNFT and unCrypto investing platform and discover a new world of transparent and inclusive crypto and DeFi opportunities. | DeFi investing, more for you is also more for me™'
+    //         title: '404 - Page Not Found | Merkle Tree Converter', 
+    //         description: 'Oops! Looks like you\'ve reached a page that doesn\'t exist.'
     //     } 
     // },
     { path: '/', name: 'Home', component: Home, 
