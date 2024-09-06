@@ -12,10 +12,19 @@
                 <v-menu activator="parent" width="250" transition="slide-y-transition" open-on-hover>
                     <v-list>
                         <v-list-item>
-                            <a :href="`https://github.com/${user.login}`" target="_blank" :rel="user.login" class="text-white-reverse text-decoration-none">
+                            <a :href="`https://github.com/${user.login}`" target="_blank" rel="noopener noreferrer" class="text-white-reverse text-decoration-none">
                                 <v-list-item-title>
-                                    <v-icon icon="mdi:mdi-account-outline" aria-label="mdi-account-outline" class="mr-3"></v-icon>
+                                    <v-icon icon="mdi mdi-account-outline" aria-label="mdi-account-outline" class="mr-3"></v-icon>
                                     <span>{{ user.name }} ({{ '@' + user.login }})</span>
+                                </v-list-item-title>
+                            </a>
+                        </v-list-item>
+                        <v-divider></v-divider>
+                        <v-list-item>
+                            <a :href="`https://github.com/settings/connections/applications/Iv23liumB35CcpJjLDHn`" target="_blank" rel="noopener noreferrer" class="text-white-reverse text-decoration-none">
+                                <v-list-item-title>
+                                    <v-icon icon="mdi mdi-security" aria-label="mdi-securitye" class="mr-3"></v-icon>
+                                    <span>Permissions</span>
                                 </v-list-item-title>
                             </a>
                         </v-list-item>
@@ -23,7 +32,7 @@
                         <!-- 退出 -->
                         <v-list-item>
                             <v-list-item-title class="cursor-pointer" @click="logout">
-                                <v-icon icon="mdi:mdi-logout-variant" aria-label="logout-variant"></v-icon>
+                                <v-icon icon="mdi mdi-logout-variant" aria-label="logout-variant"></v-icon>
                                 <a class="ml-3">Log Out</a>
                             </v-list-item-title>
                         </v-list-item>
@@ -84,7 +93,6 @@ export default {
             if (this.currentUrl != null && this.currentUrl.substring(this.currentUrl.length - 1, this.currentUrl.length) == '/') {
                 this.currentUrl = this.currentUrl.substring(0, this.currentUrl.length - 1);
             }
-            console.log(this.currentUrl);
             // 重定向到 GitHub 授权页面
             window.location.href = 'https://github.com/login/oauth/authorize?client_id=Iv23liumB35CcpJjLDHn&redirect_uri=' + this.currentUrl;
         },
@@ -101,7 +109,7 @@ export default {
             // Authorizing OAuth apps - https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
             let res = await axios({
                 method: "post",
-                url: '/github/login/oauth/access_token',
+                url: process.env.GITHUB_URL + '/login/oauth/access_token',
                 headers: {
                     'Accept': 'application/json',
                     'X-GitHub-Api-Version': '2022-11-28',
@@ -116,6 +124,7 @@ export default {
                 this.$router.replace({ query: { } });
                 alert(data.error_description);
             } else {
+                console.log('Authorization success!');
                 this.$store.dispatch("tokenHandler", data.access_token);
                 this.$store.dispatch("githubTokenHandler", data);
                 // 查询用户
@@ -131,7 +140,7 @@ export default {
             // Get the authenticated user - https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-the-authenticated-user
             let res = await axios({
                 method: "get",
-                url: '/github-api/user',
+                url: process.env.GITHUB_API_URL + '/user',
                 headers: {
                     'Accept': 'application/vnd.github+json',
                     'Authorization': 'Bearer ' + this.token,
