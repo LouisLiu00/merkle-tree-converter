@@ -109,7 +109,7 @@ export default {
             // Authorizing OAuth apps - https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
             let res = await axios({
                 method: "post",
-                url: process.env.GITHUB_URL + '/login/oauth/access_token',
+                url: import.meta.env.VITE_APP_GITHUB_URL + '/login/oauth/access_token',
                 headers: {
                     'Accept': 'application/json',
                     'X-GitHub-Api-Version': '2022-11-28',
@@ -140,7 +140,7 @@ export default {
             // Get the authenticated user - https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-the-authenticated-user
             let res = await axios({
                 method: "get",
-                url: process.env.GITHUB_API_URL + '/user',
+                url: import.meta.env.VITE_APP_GITHUB_API_URL + '/user',
                 headers: {
                     'Accept': 'application/vnd.github+json',
                     'Authorization': 'Bearer ' + this.token,

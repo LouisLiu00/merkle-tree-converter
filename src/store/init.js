@@ -11,8 +11,6 @@ export default {
                 this.initResponsive();
                 // 设置主题
 		        this.setTheme();
-                // 设置 URL
-		        this.setUrl();
 		    },
 		    computed:{
 	            ...mapGetters(['responsive', 'darkTheme'])
@@ -77,16 +75,6 @@ export default {
 					}
                     this.$store.dispatch('responsiveHandler', res);
 			    },
-                // 设置 URL
-		        setUrl() {
-                    if (process.env.NODE_ENV == 'development') {
-                        process.env.GITHUB_URL = `http://${window.location.hostname}:${window.location.port}/github`;
-                        process.env.GITHUB_API_URL = `http://${window.location.hostname}:${window.location.port}/github-api`;
-                    } else {
-                        process.env.GITHUB_URL = 'https://github.com';
-                        process.env.GITHUB_API_URL = 'https://api.github.com';
-                    }
-                }
 		  	}
 		})
 	}
