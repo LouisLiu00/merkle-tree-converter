@@ -132,10 +132,8 @@ export default {
                     this.getUser();
                 }
             } catch (error) {
-                if (error.status == 401) {
-                    // 退出登录
-                    this.logout();
-                }
+                // 退出登录
+                this.logout();
             }
         },
         // 查询用户
