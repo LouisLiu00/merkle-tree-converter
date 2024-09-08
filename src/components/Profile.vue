@@ -106,29 +106,36 @@ export default {
                 "client_secret": "806801d3a51b59316ba6c8f20d14c654f7afaf79",
                 "code": this.githubCallbackCode
             };
-            // Authorizing OAuth apps - https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
-            let res = await axios({
-                method: "post",
-                url: import.meta.env.VITE_APP_GITHUB_URL + '/login/oauth/access_token',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-GitHub-Api-Version': '2022-11-28',
-                },
-                data: body
-            });
-            // 加载完成
-            this.signInLoading = false;
-            let data = res.data;
-            if (data.error_description != null) {
-                // 移除参数
-                this.$router.replace({ query: { } });
-                alert(data.error_description);
-            } else {
-                console.log('Authorization success!');
-                this.$store.dispatch("tokenHandler", data.access_token);
-                this.$store.dispatch("githubTokenHandler", data);
-                // 查询用户
-                this.getUser();
+            try {
+                // Authorizing OAuth apps - https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
+                let res = await axios({
+                    method: "post",
+                    url: import.meta.env.VITE_APP_GITHUB_URL + '/login/oauth/access_token',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-GitHub-Api-Version': '2022-11-28',
+                    },
+                    data: body
+                });
+                // 加载完成
+                this.signInLoading = false;
+                let data = res.data;
+                if (data.error_description != null) {
+                    // 移除参数
+                    this.$router.replace({ query: { } });
+                    alert(data.error_description);
+                } else {
+                    console.log('Authorization success!');
+                    this.$store.dispatch("tokenHandler", data.access_token);
+                    this.$store.dispatch("githubTokenHandler", data);
+                    // 查询用户
+                    this.getUser();
+                }
+            } catch (error) {
+                if (error.status == 401) {
+                    // 退出登录
+                    this.logout();
+                }
             }
         },
         // 查询用户
@@ -138,22 +145,29 @@ export default {
             // 移除参数
             this.$router.replace({ query: { } });
             // Get the authenticated user - https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-the-authenticated-user
-            let res = await axios({
-                method: "get",
-                url: import.meta.env.VITE_APP_GITHUB_API_URL + '/user',
-                headers: {
-                    'Accept': 'application/vnd.github+json',
-                    'Authorization': 'Bearer ' + this.token,
-                    'X-GitHub-Api-Version': '2022-11-28',
+            try {
+                let res = await axios({
+                    method: "get",
+                    url: import.meta.env.VITE_APP_GITHUB_API_URL + '/user',
+                    headers: {
+                        'Accept': 'application/vnd.github+json',
+                        'Authorization': 'Bearer ' + this.token,
+                        'X-GitHub-Api-Version': '2022-11-28',
+                    }
+                });
+                // 加载完成
+                this.signInLoading = false;
+                let data = res.data;
+                if (data.error_description != null) {
+                    alert(data.error_description);
+                } else {
+                    this.$store.dispatch("userHandler", data);
                 }
-            });
-            // 加载完成
-            this.signInLoading = false;
-            let data = res.data;
-            if (data.error_description != null) {
-                alert(data.error_description);
-            } else {
-                this.$store.dispatch("userHandler", data);
+            } catch (error) {
+                if (error.status == 401) {
+                    // 退出登录
+                    this.logout();
+                }
             }
         },
         // 退出登录
