@@ -16,9 +16,11 @@
                     <v-col cols="12" align="center">
                         <v-card class="pa-4" color="surface-variant" rounded="lg" variant="outlined">
                             <v-file-input v-model="merkleTreeFile" accept=".json" label="Choose File" :show-size="1024" clearable></v-file-input>
-                            <div class="text-body-2 ml-10">Max file size <v-kbd>1 MiB</v-kbd>. 
-                                <a href="https://github.com/LouisLiu00/merkle-tree-converter" target="_blank" rel="noopener noreferrer">Star</a>
-                                <span> repository on GitHub for more.</span>
+                            <div class="text-body-2 ml-10" v-if="!isStarred">Max file size <v-kbd>100 KiB</v-kbd>. 
+                                <a href="https://github.com/LouisLiu00/merkle-tree-converter" target="_blank" rel="noopener noreferrer">
+                                    <span class="text-primary">Star</span>
+                                </a>
+                                <span> repository on GitHub for unlimited size.</span>
                             </div>
                         </v-card>
                         <v-btn rounded="lg" elevation="8" class="text-none text-h5 my-10" color="primary" width="200" height="60" @click="convert()">Convert</v-btn>
@@ -63,6 +65,8 @@
 	</div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import axios from '@/axios'
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 import MerkleTreeDemo from './data/merkle-tree-demo.json';
 import MerkleProofDemo from './data/merkle-proof-demo.json';
@@ -70,6 +74,8 @@ import MerkleProofDemo from './data/merkle-proof-demo.json';
 export default {
     data(){
         return {
+            // 是否星标
+            isStarred: true,
             // 树内容
             merkleTreeContent: MerkleTreeDemo,
             // 证明内容
@@ -83,15 +89,67 @@ export default {
 
     },
     mounted(){
-
+        this.$nextTick(() => {
+            if (this.token) {
+                // 查询是否星标
+                this.getStarred();
+            } else {
+                // 未登录就是未星标
+                this.isStarred = false;
+            }
+        });
     },
     computed: {
-
+        ...mapGetters(['token', 'user'])
     },
     watch:{
-        
+        merkleTreeFile: {
+            handler: function (newVal, oldVal) {
+                if (newVal) {
+                    // 没有星标 && 文件大于 100 KiB
+                    if (!this.isStarred && newVal.size > 102400) {
+                        alert("Max file size 100 KiB!");
+                        this.merkleTreeFile = null;
+                    }
+                }
+            },
+            immediate: true
+        },
+        token: {
+            handler: function (newVal, oldVal) {
+                // 查询是否星标
+                this.getStarred();
+            }
+        },
     },
     methods: {
+        // 查询是否星标
+        async getStarred() {
+            // Check if a repository is starred by the authenticated user
+            // https://docs.github.com/en/rest/activity/starring?apiVersion=2022-11-28#check-if-a-repository-is-starred-by-the-authenticated-user
+            try {
+                let res = await axios({
+                    method: "get",
+                    url: import.meta.env.VITE_APP_GITHUB_API_URL + '/user/starred/LouisLiu00/merkle-tree-converter',
+                    headers: {
+                        'Accept': 'application/vnd.github+json',
+                        'Authorization': 'Bearer ' + this.token,
+                        'X-GitHub-Api-Version': '2022-11-28',
+                    }
+                });
+                let status = res.status;
+                // 	Response if this repository is starred by you 204, else 404
+                if (status == 204) {
+                    this.isStarred = true;
+                } else {
+                    // 非204就是未星标
+                    this.isStarred = false;
+                }
+            } catch (error) {
+                // 有错误就是未星标
+                this.isStarred = false;
+            }
+        },
         // 读取文件
         async readFile() {
             return new Promise((resolve, reject) => {  
