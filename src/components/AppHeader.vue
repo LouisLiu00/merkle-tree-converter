@@ -12,20 +12,22 @@
             <span class="text-primary">Converter</span>
         </v-app-bar-title>
         <template v-slot:append>
-            <Profile class="mr-2"></Profile>
+            <Profile class="mr-5"></Profile>
+            <Theme size="32" class="mr-2"></Theme>
         </template>
     </v-app-bar>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import Profile from "@/components/Profile.vue";
+import Theme from "@/components/Theme.vue";
 export default {
     data(){
         return {
 
         }
     },
-    components: { Profile },
+    components: { Profile, Theme },
     created(){
 
     },
